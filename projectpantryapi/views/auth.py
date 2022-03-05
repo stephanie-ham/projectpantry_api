@@ -20,17 +20,18 @@ from rest_framework import status
 #     )
 # })
 @api_view(['POST'])
+@permission_classes([AllowAny])
 def login_user(request):
-    """Handles the authentication of a user
+    '''Handles the authentication of a gamer
 
-    Args:
-        request -- The full HTTP request object
-    """
+    Method arguments:
+      request -- The full HTTP request object
+    '''
     username = request.data['username']
     password = request.data['password']
 
     authenticated_user = authenticate(username=username, password=password)
-    
+
     if authenticated_user is not None:
         token = Token.objects.get(user=authenticated_user)
         data = {
@@ -40,7 +41,7 @@ def login_user(request):
         return Response(data)
     else:
         data = { 'valid': False }
-        return(Response(data))
+        return Response(data)
 
 
 @api_view(['POST'])
@@ -58,4 +59,4 @@ def register_user(request):
 
     token = Token.objects.create(user=new_user)
     data = {'token': token.key}
-    return Response(data,  status=status.HTTP_201_CREATED)
+    return Response(data, status=status.HTTP_201_CREATED)

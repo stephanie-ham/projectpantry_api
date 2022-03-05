@@ -1,5 +1,5 @@
 [FORMAT]
-good-names=i,j,ex,pk
+good-names=i,j,ex,pk, schema_view
 
 [MESSAGES CONTROL]
 disable=broad-except
