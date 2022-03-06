@@ -10,3 +10,4 @@ class FoodTag(models.Model):
         'Tag', on_delete=models.CASCADE,
         related_name='food_tags'
     )
+    
