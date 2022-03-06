@@ -9,19 +9,26 @@ from rest_framework import status
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 
-from projectpantryapi.serializers import CreateUserSerializer
+from projectpantryapi.serializers import CreateUserSerializer, MessageSerializer
 
-
-@swagger_auto_schema(method='POST', request_body=CreateUserSerializer, responses={
-    200: openapi.Response(
-        description="Returns the newly created token",
-        schema=AuthTokenSerializer()
-    )
-})
+@swagger_auto_schema(
+    method= 'POST',
+    request_body=AuthTokenSerializer(),
+    responses={
+        200: openapi.Response(
+            description="Returns the newly created token",
+            schema=AuthTokenSerializer()
+        ),
+        404: openapi.Response(
+                description="The user was not found",
+                schema=MessageSerializer()
+        )
+    }
+)
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def login_user(request):
-    '''Handles the authentication of a gamer
+    '''Handles the authentication of a user
 
     Method arguments:
       request -- The full HTTP request object

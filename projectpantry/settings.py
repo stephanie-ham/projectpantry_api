@@ -57,6 +57,21 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 10
 }
 
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'Token': {
+            'type': 'apiKey',
+            'name': 'Authorization',
+            'in': 'header',
+            'description': """Grab a token from the authtoken table.
+            Use this format in the input field: **Token &lt;token>**"""
+        }
+    },
+    'DEFAULT_MODEL_RENDERING': 'example',
+    'USE_SESSION_AUTH': False,
+    'DEFAULT_MODEL_DEPTH':-1
+}
+
 CORS_ORIGIN_WHITELIST = (
     'http://localhost:3000',
     'http://127.0.0.1:3000'

@@ -15,33 +15,26 @@ Including another URLconf
 """
 
 from django.contrib import admin
-# from django.conf.urls import include
 from django.urls import path, include, re_path
 from rest_framework import permissions
-from rest_framework import routers
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
-from projectpantryapi.views import register_user, login_user
+
 
 
 schema_view = get_schema_view(
     openapi.Info(
         title="Project: Pantry API",
         default_version='v1',
-        description="An api for users to buy and sell products",
+        description="An api for users to keep inventory of foods in their kitchen",
     ),
     public=True,
     permission_classes=[permissions.AllowAny],
 )
 
-router = routers.DefaultRouter(trailing_slash=False)
-
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('register', register_user),
-    path('login', login_user),
-    path('api-auth', include('rest_framework.urls', namespace='rest_framework')),
-    path('', include(router.urls)),
+    path('api/', include('projectpantryapi.urls')),
     re_path(r'^swagger(?P<format>\.json|\.yaml)$',
         schema_view.without_ui(cache_timeout=0), name='schema-json'),
     re_path(r'^swagger/$', schema_view.with_ui('swagger',
