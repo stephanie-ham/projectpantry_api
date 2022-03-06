@@ -26,3 +26,8 @@ class FoodSerializer(serializers.ModelSerializer):
         model = Food
         fields = ('id', 'name', 'location', 'quantity', 'user')
         depth = 1
+
+class CreateFoodSerializer(serializers.Serializer):
+    name = serializers.CharField()
+    location = serializers.IntegerField()
+    quantity = serializers.IntegerField()
