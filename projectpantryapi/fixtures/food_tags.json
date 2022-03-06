@@ -1,0 +1,18 @@
+[
+    {
+        "model": "projectpantryapi.foodtag",
+        "pk": 1,
+        "fields": {
+            "food": 3,
+            "tag": 4
+        }
+    },
+    {
+        "model": "projectpantryapi.foodtag",
+        "pk": 2,
+        "fields": {
+            "food": 3,
+            "tag": 5
+        }
+    }
+]

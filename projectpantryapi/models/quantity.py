@@ -1,5 +1,5 @@
 from django.db import models
 
 class Quantity(models.Model):
-    label = models.CharField(max_length=5)
+    title = models.CharField(max_length=5)
     

@@ -1,0 +1,51 @@
+[
+    {
+        "model": "projectpantryapi.location",
+        "pk": 1,
+        "fields": {
+            "title": "Fridge"
+        }
+    },
+    {
+        "model": "projectpantryapi.location",
+        "pk": 2,
+        "fields": {
+            "title": "Freezer"
+        }
+    },    
+    {
+        "model": "projectpantryapi.location",
+        "pk": 3,
+        "fields": {
+            "title": "Pantry"
+        }
+    },    
+    {
+        "model": "projectpantryapi.location",
+        "pk": 4,
+        "fields": {
+            "title": "Cabinet"
+        }
+    },    
+    {
+        "model": "projectpantryapi.location",
+        "pk": 5,
+        "fields": {
+            "title": "Counter"
+        }
+    },    
+    {
+        "model": "projectpantryapi.location",
+        "pk": 6,
+        "fields": {
+            "title": "Dry Storage"
+        }
+    },
+    {
+        "model": "projectpantryapi.location",
+        "pk": 7,
+        "fields": {
+            "title": "Other"
+        }
+    }
+]

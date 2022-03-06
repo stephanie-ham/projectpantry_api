@@ -1,0 +1,23 @@
+[
+    {
+        "model": "projectpantryapi.quantity",
+        "pk": 1,
+        "fields": {
+            "title": "High"
+        }
+    },
+    {
+        "model": "projectpantryapi.quantity",
+        "pk": 2,
+        "fields": {
+            "title": "Low"
+        }
+    },
+    {
+        "model": "projectpantryapi.quantity",
+        "pk": 3,
+        "fields": {
+            "title": "Out"
+        }
+    }
+]
