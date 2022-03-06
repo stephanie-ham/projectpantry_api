@@ -15,4 +15,7 @@ class TagSerializer(serializers.ModelSerializer):
         model = Tag
         fields = ('id', 'label', 'created_by')
         depth = 1
-        
+
+class CreateTagSerializer(serializers.Serializer):
+    label = serializers.CharField()
+    
