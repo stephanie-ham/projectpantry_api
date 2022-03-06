@@ -6,8 +6,7 @@ from rest_framework import status
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 from projectpantryapi.models import Tag
-from projectpantryapi.serializers import MessageSerializer,TagSerializer
-from projectpantryapi.serializers.tag_serializer import CreateTagSerializer
+from projectpantryapi.serializers import CreateTagSerializer, MessageSerializer,TagSerializer
 
 class TagView(ViewSet):
 
