@@ -1,0 +1,34 @@
+[
+    {
+        "model": "projectpantryapi.safelist",
+        "pk": 1,
+        "fields": {
+            "list_owner": 1,
+            "safe_food": 4
+        }
+    },
+    {
+        "model": "projectpantryapi.safelist",
+        "pk": 2,
+        "fields": {
+            "list_owner": 1,
+            "safe_food": 5
+        }
+    },
+    {
+        "model": "projectpantryapi.safelist",
+        "pk": 3,
+        "fields": {
+            "list_owner": 1,
+            "safe_food": 9
+        }
+    },
+    {
+        "model": "projectpantryapi.safelist",
+        "pk": 4,
+        "fields": {
+            "list_owner": 1,
+            "safe_food": 2
+        }
+    }
+]
