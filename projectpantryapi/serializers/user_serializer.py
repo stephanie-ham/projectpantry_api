@@ -14,3 +14,4 @@ class CreateUserSerializer(serializers.Serializer):
     password = serializers.CharField(required=False)
     first_name = serializers.CharField()
     last_name = serializers.CharField()
+    
