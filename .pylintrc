@@ -1,8 +1,8 @@
 [FORMAT]
-good-names=i,j,ex,pk, schema_view
+good-names=i,j,ex,pk,schema_view
 
 [MESSAGES CONTROL]
-disable=broad-except
+disable=broad-except,imported-auth-user,missing-class-docstring,no-self-use,abstract-method
 
 [MASTER]
 disable=C0114,
