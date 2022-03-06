@@ -1,5 +1,5 @@
-from django.forms import ValidationError
-# from rest_framework.decorators import action
+from rest_framework.decorators import action
+from rest_framework.exceptions import ValidationError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import status
@@ -47,4 +47,24 @@ class TagView(ViewSet):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         except ValidationError as ex:
             return Response({'message': ex.args[0]}, status=status.HTTP_400_BAD_REQUEST)
-            
+
+    @swagger_auto_schema(
+        responses={
+            204: openapi.Response(
+                description="No content, tag deleted successfully",
+            ),
+            404: openapi.Response(
+                description="Tag not found",
+                schema=MessageSerializer()
+            )
+        }
+    )
+    @action(methods=['delete'], detail=True)
+    def delete(self, request, pk):
+        """Delete a tag"""
+        try:
+            tag = Tag.objects.get(pk=pk, created_by=request.auth.user)
+            tag.delete()
+            return Response(None, status=status.HTTP_204_NO_CONTENT)
+        except Tag.DoesNotExist as ex:
+            return Response({'message': ex.args[0]}, status=status.HTTP_400_BAD_REQUEST)
