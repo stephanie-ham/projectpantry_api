@@ -4,6 +4,7 @@ from django.urls import path, include
 from projectpantryapi import views
 
 router = DefaultRouter(trailing_slash=False)
+router.register(r'tags', views.TagView, 'tag')
 
 urlpatterns = [
     path('', include(router.urls)),
