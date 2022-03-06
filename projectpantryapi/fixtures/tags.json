@@ -1,0 +1,130 @@
+[
+    {
+        "model": "projectpantryapi.tag",
+        "pk": 1,
+        "fields": {
+            "label": "breakfast",
+            "created_by": 1
+        }
+    },
+    {
+        "model": "projectpantryapi.tag",
+        "pk": 2,
+        "fields": {
+            "label": "lunch",
+            "created_by": 1
+        }
+    },
+    {
+        "model": "projectpantryapi.tag",
+        "pk": 3,
+        "fields": {
+            "label": "dinner",
+            "created_by": 1
+        }
+    },
+    {
+        "model": "projectpantryapi.tag",
+        "pk": 4,
+        "fields": {
+            "label": "snack",
+            "created_by": 1
+        }
+    },
+    {
+        "model": "projectpantryapi.tag",
+        "pk": 5,
+        "fields": {
+            "label": "fruit",
+            "created_by": 1
+        }
+    },
+    {
+        "model": "projectpantryapi.tag",
+        "pk": 6,
+        "fields": {
+            "label": "carb",
+            "created_by": 1
+        }
+    },
+    {
+        "model": "projectpantryapi.tag",
+        "pk": 7,
+        "fields": {
+            "label": "dairy",
+            "created_by": 1
+        }
+    },
+    {
+        "model": "projectpantryapi.tag",
+        "pk": 8,
+        "fields": {
+            "label": "cheese",
+            "created_by": 1
+        }
+    },
+    {
+        "model": "projectpantryapi.tag",
+        "pk": 9,
+        "fields": {
+            "label": "nuts",
+            "created_by": 1
+        }
+    },
+    {
+        "model": "projectpantryapi.tag",
+        "pk": 10,
+        "fields": {
+            "label": "veggies",
+            "created_by": 1
+        }
+    },
+    {
+        "model": "projectpantryapi.tag",
+        "pk": 11,
+        "fields": {
+            "label": "hot",
+            "created_by": 1
+        }
+    },
+    {
+        "model": "projectpantryapi.tag",
+        "pk": 12,
+        "fields": {
+            "label": "cold",
+            "created_by": 1
+        }
+    },
+    {
+        "model": "projectpantryapi.tag",
+        "pk": 13,
+        "fields": {
+            "label": "loweffort",
+            "created_by": 1
+        }
+    },
+    {
+        "model": "projectpantryapi.tag",
+        "pk": 14,
+        "fields": {
+            "label": "stove",
+            "created_by": 1
+        }
+    },
+    {
+        "model": "projectpantryapi.tag",
+        "pk": 15,
+        "fields": {
+            "label": "airfryer",
+            "created_by": 1
+        }
+    },
+    {
+        "model": "projectpantryapi.tag",
+        "pk": 16,
+        "fields": {
+            "label": "microwave",
+            "created_by": 1
+        }
+    }
+]

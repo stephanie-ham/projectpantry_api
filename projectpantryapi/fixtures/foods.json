@@ -1,0 +1,104 @@
+[
+    {
+        "model": "projectpantryapi.food",
+        "pk": 1,
+        "fields": {
+            "name": "ketchup",
+            "created_by": 1,
+            "location": 1,
+            "quantity": 2,
+            "image_path": "",
+            "user": 1
+        }
+    },
+    {
+        "model": "projectpantryapi.food",
+        "pk": 2,
+        "fields": {
+            "name": "cheddar cheese",
+            "created_by": 1,
+            "location": 1,
+            "quantity": 1,
+            "image_path": "",
+            "user": 1
+        }
+    },
+    {
+        "model": "projectpantryapi.food",
+        "pk": 3,
+        "fields": {
+            "name": "apples",
+            "created_by": 1,
+            "location": 4,
+            "quantity": 1,
+            "image_path": "",
+            "user": 1
+        }
+    },
+    {
+        "model": "projectpantryapi.food",
+        "pk": 4,
+        "fields": {
+            "name": "grapes",
+            "location": 1,
+            "quantity": 2,
+            "image_path": "",
+            "user": 1
+        }
+    },
+    {
+        "model": "projectpantryapi.food",
+        "pk": 5,
+        "fields": {
+            "name": "penne pasta",
+            "location": 3,
+            "quantity": 2,
+            "image_path": "",
+            "user": 1
+        }
+    },
+    {
+        "model": "projectpantryapi.food",
+        "pk": 6,
+        "fields": {
+            "name": "jasmine rice",
+            "location": 5,
+            "quantity": 1,
+            "image_path": "",
+            "user": 1
+        }
+    },
+    {
+        "model": "projectpantryapi.food",
+        "pk": 7,
+        "fields": {
+            "name": "chicken",
+            "location": 2,
+            "quantity": 2,
+            "image_path": "",
+            "user": 1
+        }
+    },
+    {
+        "model": "projectpantryapi.food",
+        "pk": 8,
+        "fields": {
+            "name": "salmon",
+            "location": 1,
+            "quantity": 1,
+            "image_path": "",
+            "user": 1
+        }
+    },
+    {
+        "model": "projectpantryapi.food",
+        "pk": 9,
+        "fields": {
+            "name": "almonds",
+            "location": 1,
+            "quantity": 3,
+            "image_path": "",
+            "user": 1
+        }
+    }
+]
