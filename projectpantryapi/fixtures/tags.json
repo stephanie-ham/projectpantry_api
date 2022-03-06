@@ -116,7 +116,7 @@
         "pk": 15,
         "fields": {
             "label": "airfryer",
-            "created_by": 1
+            "created_by": 2
         }
     },
     {
@@ -124,7 +124,7 @@
         "pk": 16,
         "fields": {
             "label": "microwave",
-            "created_by": 1
+            "created_by": 2
         }
     }
 ]
