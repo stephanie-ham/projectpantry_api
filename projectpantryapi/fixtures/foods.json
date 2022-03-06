@@ -4,7 +4,6 @@
         "pk": 1,
         "fields": {
             "name": "ketchup",
-            "created_by": 1,
             "location": 1,
             "quantity": 2,
             "image_path": "",
@@ -16,7 +15,6 @@
         "pk": 2,
         "fields": {
             "name": "cheddar cheese",
-            "created_by": 1,
             "location": 1,
             "quantity": 1,
             "image_path": "",
@@ -28,7 +26,6 @@
         "pk": 3,
         "fields": {
             "name": "apples",
-            "created_by": 1,
             "location": 4,
             "quantity": 1,
             "image_path": "",
