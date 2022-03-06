@@ -1,10 +1,12 @@
-from django import views
-from rest_framework.response import Response
+# from rest_framework.decorators import action
+from rest_framework.exceptions import ValidationError
 from rest_framework.viewsets import ViewSet
+from rest_framework.response import Response
+from rest_framework import status
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
-from projectpantryapi.models import Food
-from projectpantryapi.serializers import FoodSerializer, MessageSerializer
+from projectpantryapi.models import Food, Location, Quantity
+from projectpantryapi.serializers import CreateFoodSerializer,FoodSerializer, MessageSerializer
 
 class FoodView(ViewSet):
     @swagger_auto_schema(responses={
@@ -18,4 +20,34 @@ class FoodView(ViewSet):
         foods = Food.objects.filter(user=request.auth.user)
         serializer = FoodSerializer(foods, many=True)
         return Response(serializer.data)
-    
+
+
+    @swagger_auto_schema(
+        request_body=CreateFoodSerializer,
+        responses={
+            201: openapi.Response(
+                description="Returns the created food",
+                schema=FoodSerializer()
+            ),
+            400: openapi.Response(
+                description="Validation Error",
+                schema=MessageSerializer()
+            )
+        }
+    )
+    def create(self, request):
+        """Create a food"""
+        location = Location.objects.get(pk=request.data['location'])
+        quantity = Quantity.objects.get(pk=request.data['quantity'])
+        try:
+            food = Food.objects.create(
+                name = request.data['name'],
+                location = location,
+                quantity = quantity,
+                user=request.auth.user
+            )
+            serializer = FoodSerializer(food)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        except ValidationError as ex:
+            return Response({'message': ex.args[0]}, status=status.HTTP_400_BAD_REQUEST)
+        
