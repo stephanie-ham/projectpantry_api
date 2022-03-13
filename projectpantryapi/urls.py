@@ -5,6 +5,7 @@ from projectpantryapi import views
 router = DefaultRouter(trailing_slash=False)
 router.register(r'tags', views.TagView, 'tag')
 router.register(r'foods', views.FoodView, 'food')
+router.register(r'locations', views.LocationView, 'location')
 
 urlpatterns = [
     path('', include(router.urls)),
