@@ -18,6 +18,7 @@ class FoodView(ViewSet):
     def list(self, request):
         """Get a list of current user's foods"""
         foods = Food.objects.filter(user=request.auth.user)
+
         serializer = FoodSerializer(foods, many=True)
         return Response(serializer.data)
 
@@ -58,7 +59,7 @@ class FoodView(ViewSet):
                 description="No content, food deleted successfully",
             ),
             404: openapi.Response(
-                description="Tag not found",
+                description="Food not found",
                 schema=MessageSerializer()
             )
         }
