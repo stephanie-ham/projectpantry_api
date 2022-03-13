@@ -8,25 +8,6 @@ class FoodUserSerializer(serializers.ModelSerializer):
         model = User
         fields = ['username']
 
-# class LocationSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Location
-#         fields = ['title']
-
-# class QuantitySerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Quantity
-#         fields = ['title']
-# class TagSerializer(serializers.ModelSerializer):
-#     model = Tag
-#     fields = ['label']
-
-# class FoodTagSerializer(serializers.ModelSerializer):
-#     tag = TagSerializer()
-#     class Meta:
-#         model = FoodTag
-#         fields = ['tag']
-
 class FoodSerializer(serializers.ModelSerializer):
     # location = LocationSerializer()
     # quantity = QuantitySerializer()
@@ -40,5 +21,5 @@ class FoodSerializer(serializers.ModelSerializer):
 
 class CreateFoodSerializer(serializers.Serializer):
     name = serializers.CharField()
-    location = serializers.IntegerField()
-    quantity = serializers.IntegerField()
+    locationId = serializers.IntegerField()
+    quantityId = serializers.IntegerField()

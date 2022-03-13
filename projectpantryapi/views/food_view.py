@@ -6,7 +6,7 @@ from rest_framework import status
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 from projectpantryapi.models import Food, Location, Quantity
-from projectpantryapi.serializers import CreateFoodSerializer,FoodSerializer, MessageSerializer
+from projectpantryapi.serializers import CreateFoodSerializer, FoodSerializer, MessageSerializer
 
 class FoodView(ViewSet):
     @swagger_auto_schema(responses={
@@ -38,8 +38,8 @@ class FoodView(ViewSet):
     )
     def create(self, request):
         """Create a food"""
-        location = Location.objects.get(pk=request.data['location'])
-        quantity = Quantity.objects.get(pk=request.data['quantity'])
+        location = Location.objects.get(pk=request.data['locationId'])
+        quantity = Quantity.objects.get(pk=request.data['quantityId'])
         try:
             food = Food.objects.create(
                 name = request.data['name'],
@@ -73,4 +73,29 @@ class FoodView(ViewSet):
             return Response(None, status=status.HTTP_204_NO_CONTENT)
         except Food.DoesNotExist as ex:
             return Response({'message': ex.args[0]}, status=status.HTTP_400_BAD_REQUEST)
+
+
+    @swagger_auto_schema(
+        # method='PUT',
+        request_body=CreateFoodSerializer(),
+        responses={
+            204: openapi.Response(
+                description="No Content, Food updated successfully"
+            )
+        }
+    )
+    # @action(methods=['PUT'], detail=False)
+    def update(self, request, pk=None):
+        """Update a food"""
+        food = Food.objects.get(pk=pk, user=request.auth.user)
+        location = Location.objects.get(pk=request.data['locationId'])
+        quantity = Quantity.objects.get(pk=request.data['quantityId'])
+
+        food.name = request.data['name'],
+        food.location = location
+        food.quantity = quantity
+
+        food.save()
+
+        return Response(None, status=status.HTTP_204_NO_CONTENT)
         
