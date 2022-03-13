@@ -68,3 +68,23 @@ class TagView(ViewSet):
         except Tag.DoesNotExist as ex:
             return Response({'message': ex.args[0]}, status=status.HTTP_400_BAD_REQUEST)
 
+
+    @swagger_auto_schema(
+        # method='PUT',
+        request_body=CreateTagSerializer(),
+        responses={
+            204: openapi.Response(
+                description="No Content, Tag updated successfully"
+            )
+        }
+    )
+    # @action(methods=['PUT'], detail=False)
+    def update(self, request, pk=None):
+        """Update a tag"""
+        tag = Tag.objects.get(pk=pk, created_by=request.auth.user)
+        tag.label = request.data["label"]
+
+        tag.save()
+
+        return Response({}, status=status.HTTP_204_NO_CONTENT)
+    
