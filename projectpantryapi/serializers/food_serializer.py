@@ -1,13 +1,13 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from projectpantryapi.models import Food, FoodTag, Tag
+from projectpantryapi.models import Food
 
 
 class FoodUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['username']
-        
+
 # class LocationSerializer(serializers.ModelSerializer):
 #     class Meta:
 #         model = Location
@@ -26,7 +26,7 @@ class FoodUserSerializer(serializers.ModelSerializer):
 #     class Meta:
 #         model = FoodTag
 #         fields = ['tag']
-    
+
 class FoodSerializer(serializers.ModelSerializer):
     # location = LocationSerializer()
     # quantity = QuantitySerializer()
