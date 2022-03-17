@@ -1,24 +1,23 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from projectpantryapi.models import SafeList
-from projectpantryapi.models.food import Food
+from projectpantryapi.models import SafeFood, Food
 
 class ListOwnerSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['username']
-        
-class SafeFoodSerializer(serializers.ModelSerializer):
+
+class SafeListFoodSerializer(serializers.ModelSerializer):
     class Meta:
         model = Food
         fields = ('id', 'name', 'location', 'quantity', 'tags')
         depth = 1
 
-class SafeListSerializer(serializers.ModelSerializer):
+class SafeFoodSerializer(serializers.ModelSerializer):
 
-    safe_food = SafeFoodSerializer()
     list_owner = ListOwnerSerializer()
+    food = SafeListFoodSerializer()
 
     class Meta:
-        model = SafeList
-        fields = ('id', 'list_owner', 'safe_food')
+        model = SafeFood
+        fields = ('id', 'list_owner', 'food')

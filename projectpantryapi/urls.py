@@ -7,7 +7,7 @@ router.register(r'foods', views.FoodView, 'food')
 router.register(r'locations', views.LocationView, 'location')
 router.register(r'quantities', views.QuantityView, 'quantity')
 router.register(r'tags', views.TagView, 'tag')
-router.register(r'safelist', views.SafeListView, 'safelist')
+# router.register(r'safefoods', views.SafeFoodView, 'safefood')
 
 urlpatterns = [
     path('', include(router.urls)),
