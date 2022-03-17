@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from projectpantryapi.models import Food
+from projectpantryapi.models import Food, SafeFood
+from projectpantryapi.models.quantity import Quantity
 
 
 class FoodUserSerializer(serializers.ModelSerializer):
@@ -8,16 +9,25 @@ class FoodUserSerializer(serializers.ModelSerializer):
         model = User
         fields = ['username']
 
+class SafeSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = SafeFood
+        fields = ['id']
+
 class FoodSerializer(serializers.ModelSerializer):
-    # location = LocationSerializer()
-    # quantity = QuantitySerializer()
     user = FoodUserSerializer()
-    # tags = FoodTagSerializer(many=True)
+    safe_foods = SafeSerializer(many=True)
 
     class Meta:
         model = Food
-        fields = ('id', 'name', 'location', 'quantity', 'user', 'tags')
+        fields = ('id', 'name', 'location', 'quantity', 'user', 'tags', 'safe_foods')
         depth = 1
+
+class FilterByQuantitySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Quantity
+        fields = ('id', 'title')
 
 class CreateFoodSerializer(serializers.Serializer):
     name = serializers.CharField()

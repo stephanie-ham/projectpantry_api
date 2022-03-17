@@ -1,5 +1,4 @@
 
-from statistics import quantiles
 from rest_framework.response import Response
 from rest_framework.viewsets import ViewSet
 from drf_yasg.utils import swagger_auto_schema
@@ -17,8 +16,8 @@ class QuantityView(ViewSet):
 
     def list(self, request):
         """Get a list of quantities"""
-        
+
         quantities = Quantity.objects.all()
-        
+
         serializer = QuantitySerializer(quantities, many=True)
         return Response(serializer.data)

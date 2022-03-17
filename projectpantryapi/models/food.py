@@ -18,7 +18,7 @@ class Food(models.Model):
     tags = models.ManyToManyField(
         'Tag', through='FoodTag', related_name='foods'
     )
-    safe_food = models.ManyToManyField(
-        User, through='SafeList', related_name='safe_list'
+    safe_foods = models.ManyToManyField(
+        User, through='SafeFood', related_name='safe_list'
     )
     
