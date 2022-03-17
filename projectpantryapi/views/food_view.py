@@ -6,10 +6,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
-from projectpantryapi.models import Food, FoodTag, Location, Quantity, SafeFood, Tag
-from projectpantryapi.serializers import ( AddTagToFoodSerializer,
-    CreateFoodSerializer, FoodSerializer, FoodTagSerializer, 
-    MessageSerializer, SafeFoodSerializer)
+from projectpantryapi.models import Food, Location, Quantity, SafeFood
+from projectpantryapi.serializers import ( CreateFoodSerializer,FoodSerializer, MessageSerializer, SafeFoodSerializer )
 
 
 class FoodView(ViewSet):
@@ -164,7 +162,7 @@ class FoodView(ViewSet):
         food = Food.objects.get(pk=pk, user=request.auth.user)
         list_owner = request.auth.user
         try:
-            safe_food = SafeFood.objects.create(
+            safe_food, _ = SafeFood.objects.get_or_create(
                 list_owner=list_owner,
                 food=food
             )
@@ -178,8 +176,12 @@ class FoodView(ViewSet):
         """Remove a food to the current user's SafeFood list"""
         try:
             food = Food.objects.get(pk=pk, user=request.auth.user)
-            safe_food = SafeFood.objects.get(list_owner=request.auth.user)
-            safe_food.food.remove(food)
+            list_owner = request.auth.user
+            safe_food = SafeFood.objects.get(
+                list_owner=list_owner,
+                food=food
+                )
+            safe_food.delete()
             return Response(None, status=status.HTTP_204_NO_CONTENT)
         except Food.DoesNotExist as ex:
             return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
