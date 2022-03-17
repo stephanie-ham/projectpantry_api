@@ -5,8 +5,10 @@ from rest_framework.response import Response
 from rest_framework import status
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
-from projectpantryapi.models import Tag
-from projectpantryapi.serializers import CreateTagSerializer, MessageSerializer,TagSerializer
+from projectpantryapi.models import Food, Tag
+from projectpantryapi.models.food_tag import FoodTag
+from projectpantryapi.serializers import ( AddTagToFoodSerializer,
+    CreateTagSerializer, FoodTagSerializer, MessageSerializer, TagSerializer )
 
 class TagView(ViewSet):
 
@@ -70,7 +72,6 @@ class TagView(ViewSet):
 
 
     @swagger_auto_schema(
-        # method='PUT',
         request_body=CreateTagSerializer(),
         responses={
             204: openapi.Response(
@@ -78,7 +79,6 @@ class TagView(ViewSet):
             )
         }
     )
-    # @action(methods=['PUT'], detail=False)
     def update(self, request, pk=None):
         """Update a tag"""
         tag = Tag.objects.get(pk=pk, created_by=request.auth.user)
@@ -88,3 +88,44 @@ class TagView(ViewSet):
 
         return Response({}, status=status.HTTP_204_NO_CONTENT)
     
+    # @swagger_auto_schema(
+    #     method='POST',
+    #     request_body=AddTagToFoodSerializer(),
+    #     responses={
+    #         201: openapi.Response(
+    #             description="Returns message that tag was added to food",
+    #             schema=FoodTagSerializer()
+    #         ),
+    #         404: openapi.Response(
+    #             description="Product not found",
+    #             schema=MessageSerializer()
+    #         ),
+    #     }
+    # )
+    @swagger_auto_schema(
+        method='POST',
+        request_body=AddTagToFoodSerializer(),
+        responses={
+            201: openapi.Response(
+                description="Returns message that tag was added to food"
+            ),
+            404: openapi.Response(
+                description="Product not found",
+                schema=MessageSerializer()
+            ),
+        }
+    )
+    @action(methods=['post'], detail=True)
+    def add_to_food(self, request, pk=None):
+        """Add a tag to a current user's food"""
+
+        tag = Tag.objects.get(pk=pk)
+        food = Food.objects.get(user=request.auth.user, pk=request.data["foodId"])
+
+        food_tag = FoodTag.objects.create(
+            tag = tag,
+            food = food
+        )
+
+        # serializer = AddTagToFoodSerializer(food_tag, context={'request': request})
+        return Response(None, status=status.HTTP_201_CREATED)

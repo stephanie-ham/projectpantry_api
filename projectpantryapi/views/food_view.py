@@ -6,10 +6,10 @@ from rest_framework.response import Response
 from rest_framework import status
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
-from projectpantryapi.models import Food, Location, Quantity, SafeFood
-from projectpantryapi.serializers import (
-    CreateFoodSerializer, FoodSerializer, MessageSerializer,
-    SafeFoodSerializer)
+from projectpantryapi.models import Food, FoodTag, Location, Quantity, SafeFood, Tag
+from projectpantryapi.serializers import ( AddTagToFoodSerializer,
+    CreateFoodSerializer, FoodSerializer, FoodTagSerializer, 
+    MessageSerializer, SafeFoodSerializer)
 
 
 class FoodView(ViewSet):
@@ -42,6 +42,7 @@ class FoodView(ViewSet):
         foods = Food.objects.filter(user=request.auth.user)
         quantity = request.query_params.get('quantity_id', None)
         tag = request.query_params.get('tag', None)
+        safe_foods = request.query_params.get('safe_foods', None)
 
         if quantity is not None:
             foods = foods.filter(quantity=quantity)
@@ -49,7 +50,25 @@ class FoodView(ViewSet):
         if tag is not None:
             foods = foods.filter(tags=tag)
 
+        if safe_foods is not None:
+            foods = foods.filter(safe_foods=safe_foods)
+
         serializer = FoodSerializer(foods, many=True)
+        return Response(serializer.data)
+    
+    
+    @swagger_auto_schema(responses={
+        200: openapi.Response(
+            description="The list of safe foods for the current user",
+            schema=SafeFoodSerializer(many=True)
+        )
+    })
+    @action(methods=['GET'], detail=False)
+    def filter_by_safefood(self, request):
+        """Get a list of current user's safe foods"""
+        safe_foods = SafeFood.objects.filter(list_owner=request.auth.user)
+
+        serializer = SafeFoodSerializer(safe_foods, many=True)
         return Response(serializer.data)
 
     @swagger_auto_schema(
@@ -164,22 +183,3 @@ class FoodView(ViewSet):
             return Response(None, status=status.HTTP_204_NO_CONTENT)
         except Food.DoesNotExist as ex:
             return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
-
-    # @swagger_auto_schema(
-    #     responses={
-    #         200: openapi.Response(
-    #             description="A list of current user's foods filtered by quantity",
-    #             schema=FoodSerializer(many=True)
-    #         )
-    #     }
-    # )
-    # @action(methods=['get'], detail=False)
-    # def filter_by_quantity(self, request):
-    #     """Handle GET requests to food by quantity"""
-
-    #     foods = Food.objects.filter(user=request.auth.user)
-    #     quantity = self.request.query_params.get('quantity_id', None)
-    #     foods = foods.filter(quantity=quantity)
-
-    #     serializer = FoodSerializer(foods, many=True)
-    #     return Response(serializer.data)
