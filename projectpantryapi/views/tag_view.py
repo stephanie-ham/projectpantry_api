@@ -110,7 +110,7 @@ class TagView(ViewSet):
                 description="Returns message that tag was added to food"
             ),
             404: openapi.Response(
-                description="Product not found",
+                description="Tag not found",
                 schema=MessageSerializer()
             ),
         }
@@ -118,14 +118,49 @@ class TagView(ViewSet):
     @action(methods=['post'], detail=True)
     def add_to_food(self, request, pk=None):
         """Add a tag to a current user's food"""
+        try:
 
-        tag = Tag.objects.get(pk=pk)
-        food = Food.objects.get(user=request.auth.user, pk=request.data["foodId"])
+            tag = Tag.objects.get(pk=pk)
+            food = Food.objects.get(user=request.auth.user, pk=request.data["foodId"])
 
-        food_tag = FoodTag.objects.create(
-            tag = tag,
-            food = food
-        )
+            food_tag, _ = FoodTag.objects.get_or_create(
+                tag = tag,
+                food = food
+            )
 
-        # serializer = AddTagToFoodSerializer(food_tag, context={'request': request})
-        return Response(None, status=status.HTTP_201_CREATED)
+            return Response({'message': 'tag added'}, status=status.HTTP_201_CREATED)
+        except Tag.DoesNotExist as ex:
+            return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
+
+    @swagger_auto_schema(
+        method='DELETE',
+        request_body=AddTagToFoodSerializer(),
+        responses={
+            204: openapi.Response(
+                description="Returns message that tag was removed from food",
+                schema=MessageSerializer()
+            ),
+            404: openapi.Response(
+                description="Tag not found",
+                schema=MessageSerializer()
+            ),
+        }
+    )
+    @action(methods=['delete'], detail=True)
+    def remove_from_food(self, request, pk):
+        """Add a tag to a current user's food"""
+        try:
+
+            tag = Tag.objects.get(pk=pk)
+            food = Food.objects.get(user=request.auth.user, pk=request.data["foodId"])
+
+            food_tag = FoodTag.objects.get(
+                tag = tag,
+                food = food
+            )
+            
+            food_tag.delete()
+
+            return Response(None, status=status.HTTP_204_NO_CONTENT)
+        except Tag.DoesNotExist as ex:
+            return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
