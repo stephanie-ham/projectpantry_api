@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
-from projectpantryapi.models import Food, Location, Quantity, SafeFood
+from projectpantryapi.models import Food, Location, Quantity, SafeFood, Tag
 from projectpantryapi.serializers import ( CreateFoodSerializer,FoodSerializer,
     MessageSerializer, SafeFoodSerializer )
 
@@ -42,6 +42,10 @@ class FoodView(ViewSet):
         quantity = request.query_params.get('quantity_id', None)
         tag = request.query_params.get('tag', None)
         safe_foods = request.query_params.get('safe_foods', None)
+        list_owner = request.auth.user
+        
+        for food in foods:
+            food.is_safe = list_owner in food.safe_foods.all()
 
         if quantity is not None:
             foods = foods.filter(quantity=quantity)
@@ -87,6 +91,7 @@ class FoodView(ViewSet):
         """Create a food"""
         location = Location.objects.get(pk=request.data['locationId'])
         quantity = Quantity.objects.get(pk=request.data['quantityId'])
+
         try:
             food = Food.objects.create(
                 name=request.data['name'],
