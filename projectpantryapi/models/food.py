@@ -21,4 +21,11 @@ class Food(models.Model):
     safe_foods = models.ManyToManyField(
         User, through='SafeFood', related_name='safe_list'
     )
-    
+
+    @property
+    def is_safe(self):
+        return self.__is_safe
+
+    @is_safe.setter
+    def is_safe(self, value):
+        self.__is_safe = value

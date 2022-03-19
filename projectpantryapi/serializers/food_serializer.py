@@ -21,7 +21,7 @@ class FoodSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Food
-        fields = ('id', 'name', 'location', 'quantity', 'user', 'tags', 'safe_foods')
+        fields = ('id', 'name', 'location', 'quantity', 'user', 'tags', 'safe_foods', 'is_safe')
         depth = 1
 
 class FilterByQuantitySerializer(serializers.ModelSerializer):
@@ -33,3 +33,4 @@ class CreateFoodSerializer(serializers.Serializer):
     name = serializers.CharField()
     locationId = serializers.IntegerField()
     quantityId = serializers.IntegerField()
+    tags = serializers.StringRelatedField(many=True)
