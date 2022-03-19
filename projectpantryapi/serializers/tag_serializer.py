@@ -16,9 +16,9 @@ class TagSerializer(serializers.ModelSerializer):
         model = Tag
         fields = ('id', 'label', 'created_by')
         depth = 1
-        
+
 class FoodTagSerializer(serializers.ModelSerializer):
-    
+
     class Meta:
         model = FoodTag
         fields = ('id', 'tag', 'food')

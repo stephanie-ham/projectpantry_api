@@ -7,7 +7,8 @@ from rest_framework import status
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 from projectpantryapi.models import Food, Location, Quantity, SafeFood
-from projectpantryapi.serializers import ( CreateFoodSerializer,FoodSerializer, MessageSerializer, SafeFoodSerializer )
+from projectpantryapi.serializers import ( CreateFoodSerializer,FoodSerializer,
+    MessageSerializer, SafeFoodSerializer )
 
 
 class FoodView(ViewSet):
@@ -53,8 +54,8 @@ class FoodView(ViewSet):
 
         serializer = FoodSerializer(foods, many=True)
         return Response(serializer.data)
-    
-    
+
+
     @swagger_auto_schema(responses={
         200: openapi.Response(
             description="The list of safe foods for the current user",

@@ -8,7 +8,7 @@ from drf_yasg import openapi
 from projectpantryapi.models import Food, Tag
 from projectpantryapi.models.food_tag import FoodTag
 from projectpantryapi.serializers import ( AddTagToFoodSerializer,
-    CreateTagSerializer, FoodTagSerializer, MessageSerializer, TagSerializer )
+    CreateTagSerializer, MessageSerializer, TagSerializer )
 
 class TagView(ViewSet):
 
@@ -87,21 +87,7 @@ class TagView(ViewSet):
         tag.save()
 
         return Response({}, status=status.HTTP_204_NO_CONTENT)
-    
-    # @swagger_auto_schema(
-    #     method='POST',
-    #     request_body=AddTagToFoodSerializer(),
-    #     responses={
-    #         201: openapi.Response(
-    #             description="Returns message that tag was added to food",
-    #             schema=FoodTagSerializer()
-    #         ),
-    #         404: openapi.Response(
-    #             description="Product not found",
-    #             schema=MessageSerializer()
-    #         ),
-    #     }
-    # )
+
     @swagger_auto_schema(
         method='POST',
         request_body=AddTagToFoodSerializer(),
@@ -158,7 +144,7 @@ class TagView(ViewSet):
                 tag = tag,
                 food = food
             )
-            
+
             food_tag.delete()
 
             return Response(None, status=status.HTTP_204_NO_CONTENT)
