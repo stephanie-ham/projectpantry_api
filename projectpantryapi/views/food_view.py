@@ -91,13 +91,15 @@ class FoodView(ViewSet):
         """Create a food"""
         location = Location.objects.get(pk=request.data['locationId'])
         quantity = Quantity.objects.get(pk=request.data['quantityId'])
+        tag = Tag.objects.get(pk=request.data['tagId'])
 
         try:
             food = Food.objects.create(
                 name=request.data['name'],
                 location=location,
                 quantity=quantity,
-                user=request.auth.user
+                user=request.auth.user,
+                tags=tag
             )
             serializer = FoodSerializer(food)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
