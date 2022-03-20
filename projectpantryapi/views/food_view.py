@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
-from projectpantryapi.models import Food, Location, Quantity, SafeFood, Tag
+from projectpantryapi.models import Food, Location, Quantity, SafeFood, Tag, quantity
 from projectpantryapi.serializers import ( CreateFoodSerializer,FoodSerializer,
     MessageSerializer, SafeFoodSerializer )
 
@@ -75,6 +75,31 @@ class FoodView(ViewSet):
         return Response(serializer.data)
 
     @swagger_auto_schema(
+        responses={
+            200: openapi.Response(
+                description="A list of foods filtered by quantity",
+                schema=FoodSerializer(many=True)
+            )
+        },
+        manual_parameters=[
+            openapi.Parameter(
+                "quantity_id",
+                openapi.IN_QUERY,
+                required=False,
+                type=openapi.TYPE_INTEGER,
+                description="Get foods by quantity"
+            )
+        ]
+    )
+    @action(methods=['GET'], detail=False)
+    def filter_by_quantity(self, request):
+        """Get a list of tags filtered by quantity"""
+        foods = Food.objects.filter(quantity = request.query_params.get('quantity_id', None))
+
+        serializer = FoodSerializer(foods, many=True)
+        return Response(serializer.data)
+
+    @swagger_auto_schema(
         request_body=CreateFoodSerializer,
         responses={
             201: openapi.Response(
@@ -91,20 +116,23 @@ class FoodView(ViewSet):
         """Create a food"""
         location = Location.objects.get(pk=request.data['locationId'])
         quantity = Quantity.objects.get(pk=request.data['quantityId'])
-        tag = Tag.objects.get(pk=request.data['tagId'])
+        tags = Tag.objects.filter(pk__in=request.data['tags'])
+
+        food=Food()
+        food.user=request.auth.user
+        food.name = request.data['name']
+        food.location = location
+        food.quantity = quantity
 
         try:
-            food = Food.objects.create(
-                name=request.data['name'],
-                location=location,
-                quantity=quantity,
-                user=request.auth.user,
-                tags=tag
-            )
-            serializer = FoodSerializer(food)
+            food.save()
+            food.tags.set(tags)
+            serializer = FoodSerializer(food, context={'request': request})
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+
         except ValidationError as ex:
             return Response({'message': ex.args[0]}, status=status.HTTP_400_BAD_REQUEST)
+
 
     @swagger_auto_schema(
         responses={
