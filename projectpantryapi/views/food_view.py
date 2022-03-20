@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
-from projectpantryapi.models import Food, Location, Quantity, SafeFood, Tag, quantity
+from projectpantryapi.models import Food, Location, Quantity, SafeFood, Tag
 from projectpantryapi.serializers import ( CreateFoodSerializer,FoodSerializer,
     MessageSerializer, SafeFoodSerializer )
 
@@ -43,7 +43,7 @@ class FoodView(ViewSet):
         tag = request.query_params.get('tag', None)
         safe_foods = request.query_params.get('safe_foods', None)
         list_owner = request.auth.user
-        
+
         for food in foods:
             food.is_safe = list_owner in food.safe_foods.all()
 
@@ -171,13 +171,13 @@ class FoodView(ViewSet):
         location = Location.objects.get(pk=request.data['locationId'])
         quantity = Quantity.objects.get(pk=request.data['quantityId'])
 
-        food.name = request.data['name'],
+        food.name = request.data["name"]
         food.location = location
         food.quantity = quantity
 
         food.save()
 
-        return Response(None, status=status.HTTP_204_NO_CONTENT)
+        return Response({}, status=status.HTTP_204_NO_CONTENT)
 
     @swagger_auto_schema(
         method='POST',
