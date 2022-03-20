@@ -1,5 +1,5 @@
 
-from .food_serializer import FoodSerializer, CreateFoodSerializer, FilterByQuantitySerializer
+from .food_serializer import FoodSerializer, CreateFoodSerializer
 from .location_serializer import LocationSerializer
 from .message_serializer import MessageSerializer
 from .quantity_serializer import QuantitySerializer
