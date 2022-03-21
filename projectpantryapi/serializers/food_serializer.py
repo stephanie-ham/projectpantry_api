@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from projectpantryapi.models import Food, SafeFood 
+from projectpantryapi.models import Food, Location, Quantity, SafeFood, Tag 
 
 
 class FoodUserSerializer(serializers.ModelSerializer):
@@ -8,20 +8,20 @@ class FoodUserSerializer(serializers.ModelSerializer):
         model = User
         fields = ['username']
         
-# class FoodTagSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Tag
-#         fields = ('id', 'label')
+class FoodTagSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Tag
+        fields = ('id', 'label')
         
-# class FoodLocationSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Location
-#         fields = ('id', 'title')
+class FoodLocationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Location
+        fields = ('id', 'title')
         
-# class FoodQuantitySerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Quantity
-#         fields = ('id', 'title')
+class FoodQuantitySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Quantity
+        fields = ('id', 'title')
 
 class SafeSerializer(serializers.ModelSerializer):
 
@@ -31,10 +31,10 @@ class SafeSerializer(serializers.ModelSerializer):
 
 class FoodSerializer(serializers.ModelSerializer):
     user = FoodUserSerializer()
-    # location = FoodLocationSerializer()
-    # quantity = FoodQuantitySerializer()
+    location = FoodLocationSerializer()
+    quantity = FoodQuantitySerializer()
     safe_foods = SafeSerializer(many=True)
-    # tags = FoodTagSerializer(many=True)
+    tags = FoodTagSerializer(many=True)
     
     class Meta:
         model = Food
