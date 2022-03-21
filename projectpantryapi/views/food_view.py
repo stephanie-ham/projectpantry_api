@@ -170,14 +170,20 @@ class FoodView(ViewSet):
         food = Food.objects.get(pk=pk, user=request.auth.user)
         location = Location.objects.get(pk=request.data['locationId'])
         quantity = Quantity.objects.get(pk=request.data['quantityId'])
+        tags = Tag.objects.filter(pk__in=request.data['tags'])
 
         food.name = request.data["name"]
         food.location = location
         food.quantity = quantity
-
-        food.save()
-
-        return Response({}, status=status.HTTP_204_NO_CONTENT)
+        
+        try: 
+            food.save()
+            food.tags.set(tags)
+            
+            return Response({}, status=status.HTTP_204_NO_CONTENT)
+        
+        except ValidationError as ex:
+            return Response({'message': ex.args[0]}, status=status.HTTP_400_BAD_REQUEST)
 
     @swagger_auto_schema(
         method='POST',
