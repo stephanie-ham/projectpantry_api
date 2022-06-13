@@ -21,7 +21,7 @@ beat an impulsive delivery order or struggling to cook and/or eat.
 ## Installation and Setup Instructions for Client
 
 Clone down the `projectpantry_client` repository, \
-found here: https://github.com/hamiltons621/projectpantry_client. \ 
+found here: https://github.com/stephanie-ham/projectpantry_client. \ 
 You will need `node`and `npm` installed globally on your machine.  
 
 Installation:
